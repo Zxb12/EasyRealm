@@ -6,11 +6,17 @@ FenPrincipale::FenPrincipale(QWidget *parent) :
     ui(new Ui::FenPrincipale)
 {
     ui->setupUi(this);
+    ChargerRealmlists();
 }
 
 FenPrincipale::~FenPrincipale()
 {
     delete ui;
+}
+
+void FenPrincipale::ChargerRealmlists()
+{
+    ui->ui_listeRealmlist->clear();
 }
 
 void FenPrincipale::changeEvent(QEvent *e)
@@ -23,4 +29,9 @@ void FenPrincipale::changeEvent(QEvent *e)
     default:
         break;
     }
+}
+
+void FenPrincipale::on_ui_btnQuitter_released()
+{
+    this->close();
 }
