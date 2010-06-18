@@ -26,9 +26,10 @@ void FenPrincipale::ChargerRealmlists()
     while (!m_fichierRealmlist.atEnd())
     {
         Realmlist realmlist(m_fichierRealmlist);
-        m_listeRealmlist.append(realmlist);
-        ui->ui_listeRealmlist->addItem(m_listeRealmlist.last().getTitre());
+        m_listeRealmlist.insert(realmlist.getTitre(), realmlist);
     }
+
+    ui->ui_listeRealmlist->addItems(m_listeRealmlist.keys());
 
 }
 
@@ -49,7 +50,8 @@ void FenPrincipale::on_ui_btnQuitter_released()
     this->close();
 }
 
-void FenPrincipale::on_ui_listeRealmlist_currentRowChanged(int currentRow)
+void FenPrincipale::on_ui_listeRealmlist_currentTextChanged(QString currentText)
 {
-    ui->ui_contenuRealmlist->setText(m_listeRealmlist[currentRow].getRealmlistData());
+    Realmlist realmlist = m_listeRealmlist.value(currentText);
+    ui->ui_contenuRealmlist->setText(realmlist.getRealmlistData());
 }

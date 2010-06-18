@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QFile>
+#include <QMap>
 #include "realmlist.h"
 
 namespace Ui
@@ -24,11 +25,12 @@ protected:
 
 private:
     Ui::FenPrincipale *ui;
-    QList<Realmlist> m_listeRealmlist;
+//    QMap<QString, Realmlist> m_listeRealmlist;
+    QMap<QString, Realmlist> m_listeRealmlist;
     QFile m_fichierRealmlist;
 
 private slots:
-    void on_ui_listeRealmlist_currentRowChanged(int currentRow);
+    void on_ui_listeRealmlist_currentTextChanged(QString currentText);
     void on_ui_btnQuitter_released();
 };
 
