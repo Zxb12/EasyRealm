@@ -24,7 +24,7 @@ void FenPrincipale::ChargerRealmlists()
 
     if (!m_fichierRealmlist.isReadable())
     {
-        QMessageBox::critical(this, "Erreur", "Impossible de charger les realmlists depuis le fichier.");
+        QMessageBox::critical(this, tr("EasyRealm - Erreur"), tr("Impossible de charger les realmlists depuis le fichier."));
         return;
     }
 
@@ -47,7 +47,7 @@ void FenPrincipale::SauvegarderRealmlists()
 {
     if (!m_fichierRealmlist.isWritable())
     {
-        QMessageBox::critical(this, "Erreur", "Impossible de charger les realmlists depuis le fichier.");
+        QMessageBox::critical(this, tr("Easyrealm - Erreur"), tr("Impossible de charger les realmlists depuis le fichier."));
         return;
     }
 
@@ -108,5 +108,11 @@ void FenPrincipale::on_ui_btnAjouter_released()
 
 void FenPrincipale::on_ui_btnSupprimer_released()
 {
-    RechargerRealmlists();
+    int reponse = QMessageBox::warning(this, tr("EasyRealm"), tr("Êtes-vous sur de vouloir supprimer le realmlist sélectionné ?"), QMessageBox::Yes, QMessageBox::No);
+
+    if (reponse == QMessageBox::Yes)
+    {
+        m_listeRealmlist.remove(ui->ui_listeRealmlist->currentItem()->text());
+        RechargerRealmlists();
+    }
 }
