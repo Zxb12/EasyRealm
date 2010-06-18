@@ -93,7 +93,17 @@ void FenPrincipale::on_ui_listeRealmlist_currentTextChanged(QString currentText)
 
 void FenPrincipale::on_ui_btnAjouter_released()
 {
-    RechargerRealmlists();
+    Realmlist realmlist;
+    bool ok;
+    FenNouveau fen(this, &realmlist, &ok);
+    fen.exec();
+
+    if (ok)
+    {
+        m_listeRealmlist.insert(realmlist.getTitre(), realmlist);
+        QMessageBox::information(this, tr("EasyRealm"), tr("Nouveau realmlist ajouté avec succès."));
+        RechargerRealmlists();
+    }
 }
 
 void FenPrincipale::on_ui_btnSupprimer_released()

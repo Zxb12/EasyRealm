@@ -5,7 +5,10 @@ TARGET = EasyRealm
 TEMPLATE = app
 SOURCES += main.cpp \
     fenprincipale.cpp \
-    realmlist.cpp
+    realmlist.cpp \
+    fennouveau.cpp
 HEADERS += fenprincipale.h \
-    realmlist.h
-FORMS += fenprincipale.ui
+    realmlist.h \
+    fennouveau.h
+FORMS += fenprincipale.ui \
+    fennouveau.ui

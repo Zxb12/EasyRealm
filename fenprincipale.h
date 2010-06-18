@@ -6,6 +6,7 @@
 #include <QFile>
 #include <QMap>
 #include "realmlist.h"
+#include "fennouveau.h"
 
 namespace Ui
 {
