@@ -49,8 +49,8 @@ void Realmlist::ecrireRealmlistDansFichier(QFile &fichier)
 {
     if (fichier.isWritable())
     {
-        fichier.write((m_titre + '\n').toAscii());
-        fichier.write((m_realmlist + '\n').toAscii());
-        fichier.write((m_patchlist + '\n').toAscii());
+        fichier.write((m_titre + "\r\n").toAscii());
+        fichier.write((m_realmlist + "\r\n").toAscii());
+        fichier.write((m_patchlist + "\r\n").toAscii());
     }
 }
