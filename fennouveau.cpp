@@ -25,6 +25,7 @@ void FenNouveau::changeEvent(QEvent *e)
 
 void FenNouveau::rafraichirUI()
 {
+    //Si les données sont incorrectes, impossible de valider.
     if (ui->ui_titre->text().isEmpty() || ui->ui_realmlist->text().isEmpty())
     {
         ui->ui_btnAjouter->setEnabled(false);
@@ -39,6 +40,7 @@ void FenNouveau::rafraichirUI()
 
 void FenNouveau::on_ui_btnAnnuler_released()
 {
+    //Annulation : aucune valeur modifiée, pas ok...
     *m_ok = false;
     this->close();
 }
@@ -60,9 +62,12 @@ void FenNouveau::on_ui_patchlist_textChanged(QString txt)
 
 void FenNouveau::on_ui_btnAjouter_released()
 {
+    //Mise à jour du contenu du realmlist.
     m_realmlist->setTitre(ui->ui_titre->text());
     m_realmlist->setRealmlist(ui->ui_realmlist->text());
     m_realmlist->setPatchlist(ui->ui_patchlist->text());
+
+    //Nous avons modifié le realmlist, nous sommes ok...
     *m_ok = true;
     this->close();
 }

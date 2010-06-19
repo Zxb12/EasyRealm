@@ -4,6 +4,8 @@
 FenEditer::FenEditer(QWidget *parent,  Realmlist *realmlist, bool *ok) : QDialog(parent), ui(new Ui::FenEditer), m_realmlist(realmlist), m_ok(ok)
 {
     ui->setupUi(this);
+
+    //Chargement du realmlist dans l'interface
     ui->ui_titre->setText(realmlist->getTitre());
     ui->ui_realmlist->setText(realmlist->getRealmlist());
     ui->ui_patchlist->setText(realmlist->getPatchlist());
@@ -28,6 +30,7 @@ void FenEditer::changeEvent(QEvent *e)
 
 void FenEditer::rafraichirUI()
 {
+    //Si les données sont incorrectes, impossible de valider.
     if (ui->ui_titre->text().isEmpty() || ui->ui_realmlist->text().isEmpty())
     {
         ui->ui_btnEditer->setEnabled(false);
@@ -42,6 +45,7 @@ void FenEditer::rafraichirUI()
 
 void FenEditer::on_ui_btnAnnuler_released()
 {
+    //Annulation : aucune valeur modifiée, pas ok...
     *m_ok = false;
     this->close();
 }
@@ -63,9 +67,12 @@ void FenEditer::on_ui_patchlist_textChanged(QString txt)
 
 void FenEditer::on_ui_btnEditer_released()
 {
+    //Mise à jour du contenu du realmlist.
     m_realmlist->setTitre(ui->ui_titre->text());
     m_realmlist->setRealmlist(ui->ui_realmlist->text());
     m_realmlist->setPatchlist(ui->ui_patchlist->text());
+
+    //Nous avons modifié le realmlist, nous sommes ok...
     *m_ok = true;
     this->close();
 }
