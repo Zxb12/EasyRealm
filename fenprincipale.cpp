@@ -1,6 +1,8 @@
 #include "fenprincipale.h"
 #include "ui_fenprincipale.h"
 
+#define ENDL        "\r\n"
+
 FenPrincipale::FenPrincipale(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::FenPrincipale),
@@ -37,10 +39,8 @@ void FenPrincipale::ChargerRealmlists()
     //Positionnement en début de fichier
     m_fichierRealmlist.reset();
     //Lecture du realmlist précédemment sélectionné.
-    QString sRow = m_fichierRealmlist.readLine();
     //Suppression des caractères de retour à la ligne
-    sRow.chop(2);
-    int row = sRow.toInt();
+    int row = ((QString) m_fichierRealmlist.readLine()).remove(ENDL).toInt();
 
     //Chargement de tous les realmlists
     while (!m_fichierRealmlist.atEnd())
@@ -70,7 +70,7 @@ void FenPrincipale::SauvegarderRealmlists()
     //Enregistrement du realmlist actuellement sélectionné.
     QString row;
     m_fichierRealmlist.write(QByteArray::number(ui->ui_listeRealmlist->currentRow()));
-    m_fichierRealmlist.write("\r\n");
+    m_fichierRealmlist.write(ENDL);
 
     //Enregistrement des realmlists
     foreach (Realmlist realmlist, m_listeRealmlist)
