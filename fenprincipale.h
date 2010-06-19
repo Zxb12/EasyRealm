@@ -7,6 +7,7 @@
 #include <QMap>
 #include "realmlist.h"
 #include "fennouveau.h"
+#include "fenediter.h"
 
 namespace Ui
 {
@@ -35,6 +36,7 @@ private:
 private slots:
     void on_ui_listeRealmlist_currentTextChanged(QString currentText);
     void on_ui_btnAjouter_released();
+    void on_ui_btnEditer_released();
     void on_ui_btnSupprimer_released();
     void on_ui_btnQuitter_released();
 };

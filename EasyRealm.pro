@@ -6,9 +6,12 @@ TEMPLATE = app
 SOURCES += main.cpp \
     fenprincipale.cpp \
     realmlist.cpp \
-    fennouveau.cpp
+    fennouveau.cpp \
+    fenediter.cpp
 HEADERS += fenprincipale.h \
     realmlist.h \
-    fennouveau.h
+    fennouveau.h \
+    fenediter.h
 FORMS += fenprincipale.ui \
-    fennouveau.ui
+    fennouveau.ui \
+    fenediter.ui

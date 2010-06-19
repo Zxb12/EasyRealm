@@ -14,6 +14,8 @@ public:
     void ecrireRealmlistDansFichier(QFile&);
     QString getRealmlistData();
     QString getTitre() { return m_titre; }
+    QString getRealmlist() { return m_realmlist; }
+    QString getPatchlist() { return m_patchlist; }
     void setTitre(QString titre) { m_titre = titre; }
     void setRealmlist(QString realmlist) { m_realmlist = realmlist; }
     void setPatchlist(QString patchlist) { m_patchlist = patchlist; }

@@ -101,8 +101,8 @@ void FenPrincipale::on_ui_btnAjouter_released()
     if (ok)
     {
         m_listeRealmlist.insert(realmlist.getTitre(), realmlist);
-        QMessageBox::information(this, tr("EasyRealm"), tr("Nouveau realmlist ajouté avec succès."));
         RechargerRealmlists();
+        QMessageBox::information(this, tr("EasyRealm"), tr("Nouveau realmlist ajouté avec succès."));
     }
 }
 
@@ -114,5 +114,21 @@ void FenPrincipale::on_ui_btnSupprimer_released()
     {
         m_listeRealmlist.remove(ui->ui_listeRealmlist->currentItem()->text());
         RechargerRealmlists();
+    }
+}
+
+void FenPrincipale::on_ui_btnEditer_released()
+{
+    Realmlist realmlist = m_listeRealmlist.value(ui->ui_listeRealmlist->currentItem()->text());
+    bool ok;
+    FenEditer fen(this, &realmlist, &ok);
+    fen.exec();
+
+    if (ok)
+    {
+        m_listeRealmlist.remove(ui->ui_listeRealmlist->currentItem()->text());
+        m_listeRealmlist.insert(realmlist.getTitre(), realmlist);
+        RechargerRealmlists();
+        QMessageBox::information(this, tr("EasyRealm"), tr("Realmlist édité avec succès."));
     }
 }
