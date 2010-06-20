@@ -46,14 +46,19 @@ void FenPrincipale::ChargerRealmlists()
     while (!m_fichierRealmlist.atEnd())
     {
         Realmlist realmlist(m_fichierRealmlist);
-        if (EstUnDoublon(realmlist.getTitre()))
+
+        //Vérification des doublons
+        bool ok = !EstUnDoublon(realmlist.getTitre());
+        while (!ok)
         {
+            QMessageBox::warning(this, tr("EasyRealm"), tr("Erreur de chargement: le nom d'un realmlist est en conflit avec un autre, veuillez le renommer."));
             //Ouverture de la fenêtre d'édition
             //Le bouton Annuler est grisé en mode édition de titre: on ne peut que modifier le titre.
-            FenEditer fen(this, &realmlist, NULL, true);
+            FenEditer fen(this, &realmlist, &ok, true);
             fen.exec();
 
-            QMessageBox::information(this, tr("EasyRealm"), tr("Realmlist édité avec succès."));
+            if (ok)
+                QMessageBox::information(this, tr("EasyRealm"), tr("Realmlist édité avec succès."));
         }
         //Assignation à la QMap
         m_listeRealmlist.insert(realmlist.getTitre(), realmlist);
@@ -135,7 +140,7 @@ void FenPrincipale::on_ui_btnAjouter_released()
 
         doublon = EstUnDoublon(realmlist.getTitre());
         if (ok && doublon)
-            QMessageBox::warning(this, "EasyRealm", "Le nom du nouveau realmlist est déjà utilisé. Veuillez le renommer.");
+            QMessageBox::warning(this, tr("EasyRealm"), tr("Le nom du nouveau realmlist est déjà utilisé. Veuillez le renommer."));
 
         //Si n'a pas annulé et qu'on n'a pas de doublon
         if (ok && !doublon)
