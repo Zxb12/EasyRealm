@@ -206,6 +206,18 @@ void FenPrincipale::on_ui_btnAjouter_released()
 
 void FenPrincipale::on_ui_btnEditer_released()
 {
+    //Vérifications de la liste des realmlists.
+    if (m_listeRealmlist.isEmpty())
+    {
+        QMessageBox::warning(this, tr("EasyRealm"), tr("La liste de realmlists est vide."));
+        return;
+    }
+    if (ui->ui_listeRealmlist->currentRow() == -1)
+    {
+        QMessageBox::warning(this, tr("EasyRealm"), tr("Aucun realmlist n'est sélectionné."));
+        return;
+    }
+
     //Chargement du realmlist à éditer
     Realmlist realmlist = m_listeRealmlist.value(ui->ui_listeRealmlist->currentItem()->text());
     bool ok;
@@ -227,6 +239,18 @@ void FenPrincipale::on_ui_btnEditer_released()
 
 void FenPrincipale::on_ui_btnSupprimer_released()
 {
+    //Vérifications de la liste des realmlists.
+    if (m_listeRealmlist.isEmpty())
+    {
+        QMessageBox::warning(this, tr("EasyRealm"), tr("La liste de realmlists est vide."));
+        return;
+    }
+    if (ui->ui_listeRealmlist->currentRow() == -1)
+    {
+        QMessageBox::warning(this, tr("EasyRealm"), tr("Aucun realmlist n'est sélectionné."));
+        return;
+    }
+
     //Message de confirmation
     int reponse = QMessageBox::warning(this, tr("EasyRealm"), tr("Êtes-vous sur de vouloir supprimer le realmlist sélectionné ?"), QMessageBox::Yes, QMessageBox::No);
 
@@ -249,6 +273,18 @@ void FenPrincipale::on_ui_btnLancerWoW_released()
     //Si on a un mauvais dossier et que l'utilisateur ne nous donne pas de nouvelle adresse, annuler.
     if (!VerifierDossierWoW())
         return;
+
+    //Vérifications de la liste des realmlists.
+    if (m_listeRealmlist.isEmpty())
+    {
+        QMessageBox::warning(this, tr("EasyRealm"), tr("La liste de realmlists est vide."));
+        return;
+    }
+    if (ui->ui_listeRealmlist->currentRow() == -1)
+    {
+        QMessageBox::warning(this, tr("EasyRealm"), tr("Aucun realmlist n'est sélectionné."));
+        return;
+    }
 
     QString dossierWoW = ui->ui_dossierWoW->text();
 
