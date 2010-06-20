@@ -1,12 +1,15 @@
 #include "fenprincipale.h"
 #include "ui_fenprincipale.h"
 
-#define ENDL        "\r\n"
+#define ENDL                "\r\n"
+#define WOW_EXE_POS         "/Wow.exe"
+#define REALMLIST_POS_WOTLK "/Data/frFR/realmlist.wtf"
+#define CACHE_POS           "/Cache/WDB/frFR/"
 
 FenPrincipale::FenPrincipale(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::FenPrincipale),
-    m_fichierRealmlist("realmlist.dat")
+        QWidget(parent),
+        ui(new Ui::FenPrincipale),
+        m_fichierRealmlist("realmlist.dat")
 {
     ui->setupUi(this);
 
@@ -41,6 +44,15 @@ void FenPrincipale::ChargerRealmlists()
     //Lecture du realmlist précédemment sélectionné.
     //Suppression des caractères de retour à la ligne
     int row = ((QString) m_fichierRealmlist.readLine()).remove(ENDL).toInt();
+
+    //Lecture du dossier WoW
+    QString dossierWoW = ((QString) m_fichierRealmlist.readLine()).remove(ENDL);
+    ui->ui_dossierWoW->setText(dossierWoW);
+    //Vérification du dossier WoW.
+    VerifierDossierWoW();
+
+
+    //
 
     //Chargement de tous les realmlists
     while (!m_fichierRealmlist.atEnd())
@@ -86,6 +98,10 @@ void FenPrincipale::SauvegarderRealmlists()
     m_fichierRealmlist.write(QByteArray::number(ui->ui_listeRealmlist->currentRow()));
     m_fichierRealmlist.write(ENDL);
 
+    //Enregistrement du dossier WoW
+    m_fichierRealmlist.write(ui->ui_dossierWoW->text().toAscii());
+    m_fichierRealmlist.write(ENDL);
+
     //Enregistrement des realmlists
     foreach (Realmlist realmlist, m_listeRealmlist)
         realmlist.ecrireRealmlistDansFichier(m_fichierRealmlist);
@@ -97,6 +113,39 @@ void FenPrincipale::RechargerRealmlists()
     SauvegarderRealmlists();
     //Puis mise à jour de l'UI
     ChargerRealmlists();
+}
+
+bool FenPrincipale::VerifierDossierWoW(bool forcerChangement)
+{
+    bool afficherMessage = !forcerChangement;
+    QString dossierWoW = ui->ui_dossierWoW->text();
+
+    //Si on n'affiche pas le message, c'est que le changement a été forcé.
+    while ((!QFile::exists(dossierWoW + WOW_EXE_POS) && !dossierWoW.isEmpty()) || !afficherMessage)
+    {
+        if (afficherMessage)
+            QMessageBox::warning(this, tr("EasyRealm"),
+                                 tr("Le dossier World of Warcraft n'existe pas/plus dans l'emplacement enregistré ou le dossier n'est pas un dossier World of Warcraft.\n"
+                                    "Veuillez sélectionner le dossier World of Warcraft."));
+        else
+            afficherMessage = true;
+        //Si l'utilisateur clique sur Annuler, dossierWoW sera vide.
+        dossierWoW = QFileDialog::getExistingDirectory(this, tr("Choisissez le dossier d'installation de Worlf of Warcraft"), dossierWoW);
+    }
+
+    if (!(dossierWoW.isEmpty() && forcerChangement))
+        ui->ui_dossierWoW->setText(dossierWoW);
+
+    if (QFile::exists(ui->ui_dossierWoW->text() + "\\Wow.exe"))
+    {
+        ui->ui_btnLancerWoW->setEnabled(true);
+        return true;
+    }
+    else
+    {
+        ui->ui_btnLancerWoW->setEnabled(false);
+        return false;
+    }
 }
 
 void FenPrincipale::changeEvent(QEvent *e)
@@ -188,4 +237,39 @@ void FenPrincipale::on_ui_btnSupprimer_released()
         m_listeRealmlist.remove(ui->ui_listeRealmlist->currentItem()->text());
         RechargerRealmlists();
     }
+}
+
+void FenPrincipale::on_ui_btnParcourir_released()
+{
+    VerifierDossierWoW(true);
+}
+
+void FenPrincipale::on_ui_btnLancerWoW_released()
+{
+    //Si on a un mauvais dossier et que l'utilisateur ne nous donne pas de nouvelle adresse, annuler.
+    if (!VerifierDossierWoW())
+        return;
+
+    QString dossierWoW = ui->ui_dossierWoW->text();
+
+    //Ecriture du realmlist.
+    QFile realmlistFichier(dossierWoW + REALMLIST_POS_WOTLK, this);
+    Realmlist realmlist = m_listeRealmlist.value(ui->ui_listeRealmlist->currentItem()->text());
+    realmlistFichier.open(QIODevice::Truncate | QIODevice::WriteOnly);
+    realmlistFichier.write(realmlist.getRealmlistData().toAscii());
+
+    //Suppression du cache
+    QDir cacheDir = dossierWoW + CACHE_POS;
+    foreach(QString fichier, cacheDir.entryList())
+    {
+        QFile::remove(dossierWoW + CACHE_POS + fichier);
+    }
+
+    QString program = "\"" + dossierWoW + WOW_EXE_POS "\"";
+
+    //TODO: Modifier ça, c'est moche...
+//    program = ((QString) "START /MAX \"\" " + program);
+//    system(program.toStdString().c_str());
+    QProcess Wow;
+    Wow.startDetached(program);
 }

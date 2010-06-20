@@ -1,8 +1,10 @@
 #ifndef FENPRINCIPALE_H
 #define FENPRINCIPALE_H
 
+#include <QProcess>
 #include <QWidget>
 #include <QMessageBox>
+#include <QFileDialog>
 #include <QFile>
 #include <QMap>
 #include "realmlist.h"
@@ -25,6 +27,7 @@ public:
     void SauvegarderRealmlists();
     void RechargerRealmlists();
     bool EstUnDoublon(QString check) { return m_listeRealmlist.contains(check); }
+    bool VerifierDossierWoW(bool forcerChangement = false);
 
 protected:
     void changeEvent(QEvent *e);
@@ -40,6 +43,8 @@ private slots:
     void on_ui_btnEditer_released();
     void on_ui_btnSupprimer_released();
     void on_ui_btnQuitter_released();
+    void on_ui_btnParcourir_released();
+    void on_ui_btnLancerWoW_released();
 };
 
 #endif // FENPRINCIPALE_H
