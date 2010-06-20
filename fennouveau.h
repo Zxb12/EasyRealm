@@ -13,7 +13,7 @@ class FenNouveau : public QDialog
 {
     Q_OBJECT
 public:
-    FenNouveau(QWidget *parent = 0, Realmlist *realmlist = NULL, bool *ok = NULL);
+    FenNouveau(QWidget *parent = 0, Realmlist *realmlist = NULL, bool *ok = NULL, bool renommer = false);
     ~FenNouveau();
 
     void rafraichirUI();
@@ -25,6 +25,7 @@ private:
     Ui::FenNouveau *ui;
     Realmlist* m_realmlist;
     bool *m_ok;
+    bool m_renommer;
 
 private slots:
     void on_ui_btnAjouter_released();

@@ -1,9 +1,18 @@
 #include "fennouveau.h"
 #include "ui_fennouveau.h"
 
-FenNouveau::FenNouveau(QWidget *parent,  Realmlist *realmlist, bool *ok) : QDialog(parent), ui(new Ui::FenNouveau), m_realmlist(realmlist), m_ok(ok)
+FenNouveau::FenNouveau(QWidget *parent,  Realmlist *realmlist, bool *ok, bool renommer) : QDialog(parent), ui(new Ui::FenNouveau), m_realmlist(realmlist), m_ok(ok),
+m_renommer(renommer)
 {
     ui->setupUi(this);
+    if (renommer)
+    {
+        ui->ui_titre->setText(realmlist->getTitre());
+        ui->ui_realmlist->setText(realmlist->getRealmlist());
+        ui->ui_patchlist->setText(realmlist->getPatchlist());
+    }
+
+    rafraichirUI();
 }
 
 FenNouveau::~FenNouveau()
@@ -26,15 +35,14 @@ void FenNouveau::changeEvent(QEvent *e)
 void FenNouveau::rafraichirUI()
 {
     //Si les données sont incorrectes, impossible de valider.
-    if (ui->ui_titre->text().isEmpty() || ui->ui_realmlist->text().isEmpty())
+    //Dans le cas d'un ajout, titre=="" donc la condition sera fausse. Elle ne pourra être vraie que si le realmlist doit etre renommé.
+    if (ui->ui_titre->text().isEmpty() || ui->ui_realmlist->text().isEmpty() || ui->ui_titre->text() == m_realmlist->getTitre())
     {
         ui->ui_btnAjouter->setEnabled(false);
-        ui->ui_patchlist->setEnabled(false);
     }
     else
     {
         ui->ui_btnAjouter->setEnabled(true);
-        ui->ui_patchlist->setEnabled(true);
     }
 }
 

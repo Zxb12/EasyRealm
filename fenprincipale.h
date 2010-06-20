@@ -24,6 +24,7 @@ public:
     void ChargerRealmlists();
     void SauvegarderRealmlists();
     void RechargerRealmlists();
+    bool EstUnDoublon(QString check) { return m_listeRealmlist.contains(check); }
 
 protected:
     void changeEvent(QEvent *e);

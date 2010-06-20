@@ -1,7 +1,8 @@
 #include "fenediter.h"
 #include "ui_fenediter.h"
 
-FenEditer::FenEditer(QWidget *parent,  Realmlist *realmlist, bool *ok) : QDialog(parent), ui(new Ui::FenEditer), m_realmlist(realmlist), m_ok(ok)
+FenEditer::FenEditer(QWidget *parent,  Realmlist *realmlist, bool *ok, bool editerTitre) : QDialog(parent), ui(new Ui::FenEditer), m_realmlist(realmlist),
+m_ok(ok), m_editerTitre(editerTitre)
 {
     ui->setupUi(this);
 
@@ -9,6 +10,17 @@ FenEditer::FenEditer(QWidget *parent,  Realmlist *realmlist, bool *ok) : QDialog
     ui->ui_titre->setText(realmlist->getTitre());
     ui->ui_realmlist->setText(realmlist->getRealmlist());
     ui->ui_patchlist->setText(realmlist->getPatchlist());
+
+    //Changement des verrouillages de la fenêtre si on édite le titre. Pas possible d'annuler.
+    if (editerTitre)
+    {
+        ui->ui_titre->setEnabled(true);
+        ui->ui_realmlist->setEnabled(false);
+        ui->ui_patchlist->setEnabled(false);
+        ui->ui_btnAnnuler->setEnabled(false);
+    }
+
+    rafraichirUI();
 }
 
 FenEditer::~FenEditer()
@@ -30,16 +42,24 @@ void FenEditer::changeEvent(QEvent *e)
 
 void FenEditer::rafraichirUI()
 {
-    //Si les données sont incorrectes, impossible de valider.
-    if (ui->ui_titre->text().isEmpty() || ui->ui_realmlist->text().isEmpty())
+    if (!m_editerTitre)
     {
-        ui->ui_btnEditer->setEnabled(false);
-        ui->ui_patchlist->setEnabled(false);
+        //Si les données sont incorrectes, impossible de valider.
+        if (ui->ui_titre->text().isEmpty() || ui->ui_realmlist->text().isEmpty())
+        {
+            ui->ui_btnEditer->setEnabled(false);
+        }
+        else
+        {
+            ui->ui_btnEditer->setEnabled(true);
+        }
     }
     else
     {
-        ui->ui_btnEditer->setEnabled(true);
-        ui->ui_patchlist->setEnabled(true);
+        if (ui->ui_titre->text().isEmpty() || ui->ui_titre->text() == m_realmlist->getTitre())
+            ui->ui_btnEditer->setEnabled(false);
+        else
+            ui->ui_btnEditer->setEnabled(true);
     }
 }
 

@@ -13,7 +13,7 @@ class FenEditer : public QDialog
 {
     Q_OBJECT
 public:
-    FenEditer(QWidget *parent = 0, Realmlist *realmlist = NULL, bool *ok = NULL);
+    FenEditer(QWidget *parent = 0, Realmlist *realmlist = NULL, bool *ok = NULL, bool editerTitre = false);
     ~FenEditer();
 
     void rafraichirUI();
@@ -25,6 +25,7 @@ private:
     Ui::FenEditer *ui;
     Realmlist* m_realmlist;
     bool *m_ok;
+    bool m_editerTitre;
 
 private slots:
     void on_ui_btnEditer_released();

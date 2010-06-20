@@ -46,6 +46,15 @@ void FenPrincipale::ChargerRealmlists()
     while (!m_fichierRealmlist.atEnd())
     {
         Realmlist realmlist(m_fichierRealmlist);
+        if (EstUnDoublon(realmlist.getTitre()))
+        {
+            //Ouverture de la fenêtre d'édition
+            //Le bouton Annuler est grisé en mode édition de titre: on ne peut que modifier le titre.
+            FenEditer fen(this, &realmlist, NULL, true);
+            fen.exec();
+
+            QMessageBox::information(this, tr("EasyRealm"), tr("Realmlist édité avec succès."));
+        }
         //Assignation à la QMap
         m_listeRealmlist.insert(realmlist.getTitre(), realmlist);
     }
@@ -115,34 +124,30 @@ void FenPrincipale::on_ui_btnAjouter_released()
 {
     //Création du nouveau realmlist
     Realmlist realmlist;
-    bool ok;
-    //Affichage de la fenêtre d'ajout
-    FenNouveau fen(this, &realmlist, &ok);
-    fen.exec();
+    bool ok = true;
+    bool doublon = false;
 
-    //Si l'utilisateur n'a pas annulé
-    if (ok)
+    do
     {
-        //On ajoute le realmlist résultant de la fenêtre d'ajout
-        m_listeRealmlist.insert(realmlist.getTitre(), realmlist);
-        //On met à jour le fichier et l'UI
-        RechargerRealmlists();
-        QMessageBox::information(this, tr("EasyRealm"), tr("Nouveau realmlist ajouté avec succès."));
-    }
-}
+        //Affichage de la fenêtre d'ajout
+        FenNouveau fen(this, &realmlist, &ok, doublon);
+        fen.exec();
 
-void FenPrincipale::on_ui_btnSupprimer_released()
-{
-    //Message de confirmation
-    int reponse = QMessageBox::warning(this, tr("EasyRealm"), tr("Êtes-vous sur de vouloir supprimer le realmlist sélectionné ?"), QMessageBox::Yes, QMessageBox::No);
+        doublon = EstUnDoublon(realmlist.getTitre());
+        if (ok && doublon)
+            QMessageBox::warning(this, "EasyRealm", "Le nom du nouveau realmlist est déjà utilisé. Veuillez le renommer.");
 
-    //Si l'utilisateur confirme
-    if (reponse == QMessageBox::Yes)
-    {
-        //On supprimer et on actualise le fichier & l'UI
-        m_listeRealmlist.remove(ui->ui_listeRealmlist->currentItem()->text());
-        RechargerRealmlists();
+        //Si n'a pas annulé et qu'on n'a pas de doublon
+        if (ok && !doublon)
+        {
+            //On ajoute le realmlist résultant de la fenêtre d'ajout
+            m_listeRealmlist.insert(realmlist.getTitre(), realmlist);
+            //On met à jour le fichier et l'UI
+            RechargerRealmlists();
+            QMessageBox::information(this, tr("EasyRealm"), tr("Nouveau realmlist ajouté avec succès."));
+        }
     }
+    while(ok && doublon);
 }
 
 void FenPrincipale::on_ui_btnEditer_released()
@@ -163,5 +168,19 @@ void FenPrincipale::on_ui_btnEditer_released()
         //Mise à jour
         RechargerRealmlists();
         QMessageBox::information(this, tr("EasyRealm"), tr("Realmlist édité avec succès."));
+    }
+}
+
+void FenPrincipale::on_ui_btnSupprimer_released()
+{
+    //Message de confirmation
+    int reponse = QMessageBox::warning(this, tr("EasyRealm"), tr("Êtes-vous sur de vouloir supprimer le realmlist sélectionné ?"), QMessageBox::Yes, QMessageBox::No);
+
+    //Si l'utilisateur confirme
+    if (reponse == QMessageBox::Yes)
+    {
+        //On supprimer et on actualise le fichier & l'UI
+        m_listeRealmlist.remove(ui->ui_listeRealmlist->currentItem()->text());
+        RechargerRealmlists();
     }
 }
