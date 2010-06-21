@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/FenPrincipale">
+        <file>ressources/add.png</file>
+        <file>ressources/delete.png</file>
+        <file>ressources/exit.png</file>
+        <file>ressources/restart.png</file>
+        <file>ressources/wow.ico</file>
+        <file>ressources/progicon.png</file>
+        <file>ressources/browse.png</file>
+        <file>ressources/cancel.png</file>
+        <file>ressources/ok.png</file>
+        <file>ressources/ok_edit.png</file>
+    </qresource>
+</RCC>

@@ -94,6 +94,10 @@
      <property name="text">
       <string>Ajouter</string>
      </property>
+     <property name="icon">
+      <iconset resource="EasyRealmRessources.qrc">
+       <normaloff>:/FenPrincipale/ressources/ok.png</normaloff>:/FenPrincipale/ressources/ok.png</iconset>
+     </property>
     </widget>
    </item>
    <item row="1" column="2">
@@ -101,10 +105,16 @@
      <property name="text">
       <string>Annuler</string>
      </property>
+     <property name="icon">
+      <iconset resource="EasyRealmRessources.qrc">
+       <normaloff>:/FenPrincipale/ressources/cancel.png</normaloff>:/FenPrincipale/ressources/cancel.png</iconset>
+     </property>
     </widget>
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="EasyRealmRessources.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>519</width>
-    <height>202</height>
+    <width>538</width>
+    <height>200</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -21,6 +21,10 @@
   </property>
   <property name="windowTitle">
    <string>EasyRealm - Beta</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="EasyRealmRessources.qrc">
+    <normaloff>:/FenPrincipale/ressources/progicon.png</normaloff>:/FenPrincipale/ressources/progicon.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -93,6 +97,10 @@
        <property name="text">
         <string>Parcourir</string>
        </property>
+       <property name="icon">
+        <iconset resource="EasyRealmRessources.qrc">
+         <normaloff>:/FenPrincipale/ressources/browse.png</normaloff>:/FenPrincipale/ressources/browse.png</iconset>
+       </property>
       </widget>
      </item>
     </layout>
@@ -111,12 +119,26 @@
        <property name="text">
         <string>Lancer World of Warcraft</string>
        </property>
+       <property name="icon">
+        <iconset resource="EasyRealmRessources.qrc">
+         <normaloff>:/FenPrincipale/ressources/wow.ico</normaloff>:/FenPrincipale/ressources/wow.ico</iconset>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
+       <property name="default">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="ui_btnAjouter">
        <property name="text">
         <string>Ajouter</string>
+       </property>
+       <property name="icon">
+        <iconset resource="EasyRealmRessources.qrc">
+         <normaloff>:/FenPrincipale/ressources/add.png</normaloff>:/FenPrincipale/ressources/add.png</iconset>
        </property>
       </widget>
      </item>
@@ -125,12 +147,20 @@
        <property name="text">
         <string>Editer</string>
        </property>
+       <property name="icon">
+        <iconset resource="EasyRealmRessources.qrc">
+         <normaloff>:/FenPrincipale/ressources/restart.png</normaloff>:/FenPrincipale/ressources/restart.png</iconset>
+       </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="ui_btnSupprimer">
        <property name="text">
         <string>Supprimer</string>
+       </property>
+       <property name="icon">
+        <iconset resource="EasyRealmRessources.qrc">
+         <normaloff>:/FenPrincipale/ressources/delete.png</normaloff>:/FenPrincipale/ressources/delete.png</iconset>
        </property>
       </widget>
      </item>
@@ -152,6 +182,13 @@
        <property name="text">
         <string>Quitter</string>
        </property>
+       <property name="icon">
+        <iconset resource="EasyRealmRessources.qrc">
+         <normaloff>:/FenPrincipale/ressources/exit.png</normaloff>:/FenPrincipale/ressources/exit.png</iconset>
+       </property>
+       <property name="checkable">
+        <bool>false</bool>
+       </property>
       </widget>
      </item>
     </layout>
@@ -159,6 +196,8 @@
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="EasyRealmRessources.qrc"/>
+ </resources>
  <connections/>
 </ui>
