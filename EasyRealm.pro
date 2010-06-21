@@ -15,5 +15,7 @@ HEADERS += fenprincipale.h \
 FORMS += fenprincipale.ui \
     fennouveau.ui \
     fenediter.ui
+TRANSLATIONS += easyrealm_fr.ts \
+    easyrealm_en.ts
 RESOURCES += EasyRealmRessources.qrc
 RC_FILE = EasyRealmRessources.rc

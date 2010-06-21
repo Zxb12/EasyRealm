@@ -4,6 +4,7 @@
 #define ENDL                "\r\n"
 #define WOW_EXE_POS         "/Wow.exe"
 #define REALMLIST_POS_WOTLK "/Data/frFR/realmlist.wtf"
+#define REALMLIST_POS_BC    "/realmlist.wtf"
 #define CACHE_POS           "/Cache/WDB/frFR/"
 
 FenPrincipale::FenPrincipale(QWidget *parent) :
