@@ -10,6 +10,7 @@
 #include "realmlist.h"
 #include "fennouveau.h"
 #include "fenediter.h"
+#include "fenoptions.h"
 
 namespace Ui
 {
@@ -29,6 +30,9 @@ public:
     bool EstUnDoublon(QString check) { return m_listeRealmlist.contains(check); }
     bool VerifierDossierWoW(bool forcerChangement = false);
 
+    void setViderCache(bool viderCache) { m_viderCache = viderCache; }
+    bool getViderCache() { return m_viderCache; }
+
 protected:
     void changeEvent(QEvent *e);
 
@@ -36,6 +40,7 @@ private:
     Ui::FenPrincipale *ui;
     QMap<QString, Realmlist> m_listeRealmlist;
     QFile m_fichierRealmlist;
+    bool m_viderCache;
 
 private slots:
     void on_ui_listeRealmlist_currentTextChanged(QString currentText);
@@ -45,6 +50,7 @@ private slots:
     void on_ui_btnQuitter_released();
     void on_ui_btnParcourir_released();
     void on_ui_btnLancerWoW_released();
+    void on_ui_btnOptions_released();
 };
 
 #endif // FENPRINCIPALE_H

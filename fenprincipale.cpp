@@ -46,6 +46,9 @@ void FenPrincipale::ChargerRealmlists()
     //Suppression des caractères de retour à la ligne
     int row = ((QString) m_fichierRealmlist.readLine()).remove(ENDL).toInt();
 
+    //Lecture du status du vidage de cache.
+    m_viderCache = (((QString) m_fichierRealmlist.readLine()).remove(ENDL) == "VIDER_CACHE");
+
     //Lecture du dossier WoW
     QString dossierWoW = ((QString) m_fichierRealmlist.readLine()).remove(ENDL);
     ui->ui_dossierWoW->setText(dossierWoW);
@@ -97,6 +100,13 @@ void FenPrincipale::SauvegarderRealmlists()
     //Enregistrement du realmlist actuellement sélectionné.
     QString row;
     m_fichierRealmlist.write(QByteArray::number(ui->ui_listeRealmlist->currentRow()));
+    m_fichierRealmlist.write(ENDL);
+
+    //Enregistrement du status du vidage du cache
+    if (m_viderCache)
+        m_fichierRealmlist.write("VIDER_CACHE");
+    else
+        m_fichierRealmlist.write("PAS_VIDER_CACHE");
     m_fichierRealmlist.write(ENDL);
 
     //Enregistrement du dossier WoW
@@ -296,17 +306,26 @@ void FenPrincipale::on_ui_btnLancerWoW_released()
     realmlistFichier.write(realmlist.getRealmlistData().toAscii());
 
     //Suppression du cache
-    QDir cacheDir = dossierWoW + CACHE_POS;
-    foreach(QString fichier, cacheDir.entryList())
+    if (m_viderCache)
     {
-        QFile::remove(dossierWoW + CACHE_POS + fichier);
+        QDir cacheDir = dossierWoW + CACHE_POS;
+        foreach(QString fichier, cacheDir.entryList())
+        {
+            QFile::remove(dossierWoW + CACHE_POS + fichier);
+        }
     }
 
     QString program = "\"" + dossierWoW + WOW_EXE_POS "\"";
 
     //TODO: Modifier ça, c'est moche...
-//    program = ((QString) "START /MAX \"\" " + program);
-//    system(program.toStdString().c_str());
+    //    program = ((QString) "START /MAX \"\" " + program);
+    //    system(program.toStdString().c_str());
     QProcess Wow;
     Wow.startDetached(program);
+}
+
+void FenPrincipale::on_ui_btnOptions_released()
+{
+    FenOptions fen(this);
+    fen.exec();
 }

@@ -10,5 +10,6 @@
         <file>ressources/cancel.png</file>
         <file>ressources/ok.png</file>
         <file>ressources/ok_edit.png</file>
+        <file>ressources/options.png</file>
     </qresource>
 </RCC>

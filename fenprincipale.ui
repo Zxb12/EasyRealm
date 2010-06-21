@@ -103,6 +103,17 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QPushButton" name="ui_btnOptions">
+       <property name="text">
+        <string>Options</string>
+       </property>
+       <property name="icon">
+        <iconset resource="EasyRealmRessources.qrc">
+         <normaloff>:/FenPrincipale/ressources/options.png</normaloff>:/FenPrincipale/ressources/options.png</iconset>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>

@@ -7,14 +7,17 @@ SOURCES += main.cpp \
     fenprincipale.cpp \
     realmlist.cpp \
     fennouveau.cpp \
-    fenediter.cpp
+    fenediter.cpp \
+    fenoptions.cpp
 HEADERS += fenprincipale.h \
     realmlist.h \
     fennouveau.h \
-    fenediter.h
+    fenediter.h \
+    fenoptions.h
 FORMS += fenprincipale.ui \
     fennouveau.ui \
-    fenediter.ui
+    fenediter.ui \
+    fenoptions.ui
 TRANSLATIONS += easyrealm_fr.ts \
     easyrealm_en.ts
 RESOURCES += EasyRealmRessources.qrc
