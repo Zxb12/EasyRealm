@@ -4,3 +4,12 @@
 EasyRealm est un logiciel permettant de modifier facilement
 et rapidement le fichier Realmlist.wtf d'une installation
 de World of Warcraft.
+
+Changelog:
+	--
+
+Instructions de compilation:
+Le compilateur Qt est requis pour compiler ce projet. Une fois
+le projet compilé, n'oubliez pas de compiler les fichier .ts
+de traduction en utilisant la commande lrelease EasyRealm.pro
+dans l'invite de commandes Qt.
