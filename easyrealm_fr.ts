@@ -76,8 +76,9 @@
     <name>FenPrincipale</name>
     <message>
         <location filename="fenprincipale.ui" line="23"/>
-        <source>EasyRealm - Beta</source>
-        <translation>EasyRealm - Beta</translation>
+        <source>EasyRealm - v1.0</source>
+        <oldsource>EasyRealm - Beta</oldsource>
+        <translation>EasyRealm - v1.0</translation>
     </message>
     <message>
         <location filename="fenprincipale.ui" line="41"/>

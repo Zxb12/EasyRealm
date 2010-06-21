@@ -20,7 +20,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>EasyRealm - Beta</string>
+   <string>EasyRealm - v1.0</string>
   </property>
   <property name="windowIcon">
    <iconset resource="EasyRealmRessources.qrc">
