@@ -319,8 +319,19 @@ void FenPrincipale::on_ui_btnLancerWoW_released()
     Realmlist realmlist = m_listeRealmlist.value(ui->ui_listeRealmlist->currentItem()->text());
     QString dossierWoW = m_listeDossiersWoW.value(realmlist.getNomDossier());
 
+    //Vérification du type d'installation.
+    QFile realmlistFichier;
+    if (QFile::exists(dossierWoW + REALMLIST_POS_WOTLK))
+        realmlistFichier.setFileName(dossierWoW + REALMLIST_POS_WOTLK);
+    else if (QFile::exists(dossierWoW + REALMLIST_POS_BC))
+        realmlistFichier.setFileName(dossierWoW + REALMLIST_POS_BC);
+    else
+    {
+        QMessageBox::warning(this, tr("EasyRealm"), tr("EasyRealm ne trouve pas de fichier realmlist.wtf avec le dossier d'installation spécifié."));
+        return;
+    }
+
     //Ecriture du realmlist.
-    QFile realmlistFichier(dossierWoW + REALMLIST_POS_WOTLK, this);
     realmlistFichier.open(QIODevice::Truncate | QIODevice::WriteOnly);
     realmlistFichier.write(realmlist.getRealmlistData().toAscii());
 
