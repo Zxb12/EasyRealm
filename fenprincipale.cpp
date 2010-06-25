@@ -1,11 +1,15 @@
 #include "fenprincipale.h"
 #include "ui_fenprincipale.h"
 
-#define ENDL                "\r\n"
-#define WOW_EXE_POS         "/Wow.exe"
-#define REALMLIST_POS_WOTLK "/Data/frFR/realmlist.wtf"
-#define REALMLIST_POS_BC    "/realmlist.wtf"
-#define CACHE_POS           "/Cache/WDB/frFR/"
+#define ENDL                        "\r\n"
+#define MARQUEUR_FIN_DOSSIERS       "FIN_DOSSIERS_WOW"
+#define MARQUEUR_VIDER_CACHE        "VIDER_CACHE"
+#define MARQUEUR_PAS_VIDER_CACHE    "PAS_VIDER_CACHE"
+
+#define WOW_EXE_POS                 "/Wow.exe"
+#define REALMLIST_POS_WOTLK         "/Data/frFR/realmlist.wtf"
+#define REALMLIST_POS_BC            "/realmlist.wtf"
+#define CACHE_POS                   "/Cache/WDB/frFR/"
 
 FenPrincipale::FenPrincipale(QWidget *parent) :
         QWidget(parent),
@@ -50,18 +54,24 @@ void FenPrincipale::ChargerRealmlists()
     m_viderCache = (((QString) m_fichierRealmlist.readLine()).remove(ENDL) == "VIDER_CACHE");
 
     //Lecture du dossier WoW
-    QString dossierWoW = ((QString) m_fichierRealmlist.readLine()).remove(ENDL);
-    ui->ui_dossierWoW->setText(dossierWoW);
-    //Vérification du dossier WoW.
+    QString nomDossierWoW;
+    //Tant qu'on est pas arrivés au marqueur de fin
+    while ((nomDossierWoW = ((QString) m_fichierRealmlist.readLine()).remove(ENDL)) != "FIN_DOSSIERS_WOW" && !m_fichierRealmlist.atEnd())
+    {
+        //On lit le nom puis le dossier, on les stocke.
+        m_listeDossiersWoW.insert(nomDossierWoW, ((QString) m_fichierRealmlist.readLine()).remove(ENDL));
+    }
+    //Vérification des dossiers WoW.
     VerifierDossierWoW();
-
-
-    //
 
     //Chargement de tous les realmlists
     while (!m_fichierRealmlist.atEnd())
     {
         Realmlist realmlist(m_fichierRealmlist);
+
+        //Vérification du dossier associé.
+        if (!m_listeDossiersWoW.contains(realmlist.getNomDossier()))
+            realmlist.setDossierExiste(false);
 
         //Vérification des doublons
         bool ok = !EstUnDoublon(realmlist.getTitre());
@@ -69,7 +79,6 @@ void FenPrincipale::ChargerRealmlists()
         {
             QMessageBox::warning(this, tr("EasyRealm"), tr("Erreur de chargement: le nom d'un realmlist est en conflit avec un autre, veuillez le renommer."));
             //Ouverture de la fenêtre d'édition
-            //Le bouton Annuler est grisé en mode édition de titre: on ne peut que modifier le titre.
             FenEditer fen(this, &realmlist, &ok, true);
             fen.exec();
 
@@ -98,19 +107,28 @@ void FenPrincipale::SauvegarderRealmlists()
     m_fichierRealmlist.resize(0);
 
     //Enregistrement du realmlist actuellement sélectionné.
-    QString row;
     m_fichierRealmlist.write(QByteArray::number(ui->ui_listeRealmlist->currentRow()));
     m_fichierRealmlist.write(ENDL);
 
     //Enregistrement du status du vidage du cache
     if (m_viderCache)
-        m_fichierRealmlist.write("VIDER_CACHE");
+        m_fichierRealmlist.write(MARQUEUR_VIDER_CACHE);
     else
-        m_fichierRealmlist.write("PAS_VIDER_CACHE");
+        m_fichierRealmlist.write(MARQUEUR_PAS_VIDER_CACHE);
     m_fichierRealmlist.write(ENDL);
 
-    //Enregistrement du dossier WoW
-    m_fichierRealmlist.write(ui->ui_dossierWoW->text().toAscii());
+    //Enregistrement des dossiers WoW
+    QMap<QString, QString>::const_iterator i = m_listeDossiersWoW.constBegin();
+    while (i != m_listeDossiersWoW.constEnd())
+    {
+        m_fichierRealmlist.write(i.key().toAscii());
+        m_fichierRealmlist.write(ENDL);
+        m_fichierRealmlist.write(i.value().toAscii());
+        m_fichierRealmlist.write(ENDL);
+        ++i;
+    }
+    //Enregistrement du marqueur de fin.
+    m_fichierRealmlist.write(MARQUEUR_FIN_DOSSIERS);
     m_fichierRealmlist.write(ENDL);
 
     //Enregistrement des realmlists
@@ -126,36 +144,41 @@ void FenPrincipale::RechargerRealmlists()
     ChargerRealmlists();
 }
 
-bool FenPrincipale::VerifierDossierWoW(bool forcerChangement)
+void FenPrincipale::VerifierDossierWoW()
 {
-    bool afficherMessage = !forcerChangement;
-    QString dossierWoW = ui->ui_dossierWoW->text();
-
-    //Si on n'affiche pas le message, c'est que le changement a été forcé.
-    while ((!QFile::exists(dossierWoW + WOW_EXE_POS) && !dossierWoW.isEmpty()) || !afficherMessage)
+    //TODO: Revoir entièrement cette fonction pour ne pas utiliser de deuxième liste...
+    //Je ne connais certainement pas assez les itérateurs pour faire un truc en finesse.
+    QList<QString> dossiersASupprimer;
+    QMap<QString, QString>::iterator i = m_listeDossiersWoW.begin();
+    while (i != m_listeDossiersWoW.end())
     {
-        if (afficherMessage)
+        QString dossier = i.value();
+        QString nomDossier = i.key();
+
+        //Vérification de la validité du dossier.
+        while (!QFile::exists(dossier + WOW_EXE_POS) && !dossier.isEmpty())
+        {
             QMessageBox::warning(this, tr("EasyRealm"),
                                  tr("Le dossier World of Warcraft n'existe pas/plus dans l'emplacement enregistré ou le dossier n'est pas un dossier World of Warcraft.\n"
                                     "Veuillez sélectionner le dossier World of Warcraft."));
-        else
-            afficherMessage = true;
-        //Si l'utilisateur clique sur Annuler, dossierWoW sera vide.
-        dossierWoW = QFileDialog::getExistingDirectory(this, tr("Choisissez le dossier d'installation de Worlf of Warcraft"), dossierWoW);
+
+            dossier = QFileDialog::getExistingDirectory(this, tr("Choisissez le dossier d'installation de World of Warcraft"), dossier);
+
+            m_listeDossiersWoW.remove(nomDossier);
+            if (dossier.isEmpty())
+            {
+                QMessageBox::warning(this, tr("EasyRealm"), tr("L'installation ") + nomDossier + tr(" a été supprimée."));
+                dossiersASupprimer.append(nomDossier);
+            }
+            m_listeDossiersWoW.insert(nomDossier, dossier);
+        }
+        i++;
     }
 
-    if (!(dossierWoW.isEmpty() && forcerChangement))
-        ui->ui_dossierWoW->setText(dossierWoW);
-
-    if (QFile::exists(ui->ui_dossierWoW->text() + "\\Wow.exe"))
+    //On supprime tous les dossiers marqués.
+    foreach(QString nomDossier, dossiersASupprimer)
     {
-        ui->ui_btnLancerWoW->setEnabled(true);
-        return true;
-    }
-    else
-    {
-        ui->ui_btnLancerWoW->setEnabled(false);
-        return false;
+        m_listeDossiersWoW.remove(nomDossier);
     }
 }
 
@@ -183,6 +206,10 @@ void FenPrincipale::on_ui_listeRealmlist_currentTextChanged(QString currentText)
     //Mise à jour de l'aperçu du realmlist
     Realmlist realmlist = m_listeRealmlist.value(currentText);
     ui->ui_contenuRealmlist->setText(realmlist.getRealmlistData());
+    if (!realmlist.getDossierExiste())
+        ui->ui_btnLancerWoW->setEnabled(false);
+    else
+        ui->ui_btnLancerWoW->setEnabled(true);
 }
 
 void FenPrincipale::on_ui_btnAjouter_released()
@@ -274,17 +301,8 @@ void FenPrincipale::on_ui_btnSupprimer_released()
     }
 }
 
-void FenPrincipale::on_ui_btnParcourir_released()
-{
-    VerifierDossierWoW(true);
-}
-
 void FenPrincipale::on_ui_btnLancerWoW_released()
 {
-    //Si on a un mauvais dossier et que l'utilisateur ne nous donne pas de nouvelle adresse, annuler.
-    if (!VerifierDossierWoW())
-        return;
-
     //Vérifications de la liste des realmlists.
     if (m_listeRealmlist.isEmpty())
     {
@@ -297,11 +315,12 @@ void FenPrincipale::on_ui_btnLancerWoW_released()
         return;
     }
 
-    QString dossierWoW = ui->ui_dossierWoW->text();
+    //On récupère le dossier
+    Realmlist realmlist = m_listeRealmlist.value(ui->ui_listeRealmlist->currentItem()->text());
+    QString dossierWoW = m_listeDossiersWoW.value(realmlist.getNomDossier());
 
     //Ecriture du realmlist.
     QFile realmlistFichier(dossierWoW + REALMLIST_POS_WOTLK, this);
-    Realmlist realmlist = m_listeRealmlist.value(ui->ui_listeRealmlist->currentItem()->text());
     realmlistFichier.open(QIODevice::Truncate | QIODevice::WriteOnly);
     realmlistFichier.write(realmlist.getRealmlistData().toAscii());
 
@@ -317,9 +336,6 @@ void FenPrincipale::on_ui_btnLancerWoW_released()
 
     QString program = "\"" + dossierWoW + WOW_EXE_POS "\"";
 
-    //TODO: Modifier ça, c'est moche...
-    //    program = ((QString) "START /MAX \"\" " + program);
-    //    system(program.toStdString().c_str());
     QProcess Wow;
     Wow.startDetached(program);
 }

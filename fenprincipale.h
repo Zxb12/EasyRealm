@@ -28,10 +28,12 @@ public:
     void SauvegarderRealmlists();
     void RechargerRealmlists();
     bool EstUnDoublon(QString check) { return m_listeRealmlist.contains(check); }
-    bool VerifierDossierWoW(bool forcerChangement = false);
+    void VerifierDossierWoW();
 
     void setViderCache(bool viderCache) { m_viderCache = viderCache; }
     bool getViderCache() { return m_viderCache; }
+    void setListeDossiersWoW(QMap<QString, QString> liste) { m_listeDossiersWoW = liste; }
+    QMap<QString, QString> getListeDossiersWoW() { return m_listeDossiersWoW; }
 
 protected:
     void changeEvent(QEvent *e);
@@ -39,6 +41,7 @@ protected:
 private:
     Ui::FenPrincipale *ui;
     QMap<QString, Realmlist> m_listeRealmlist;
+    QMap<QString, QString> m_listeDossiersWoW;
     QFile m_fichierRealmlist;
     bool m_viderCache;
 
@@ -48,7 +51,6 @@ private slots:
     void on_ui_btnEditer_released();
     void on_ui_btnSupprimer_released();
     void on_ui_btnQuitter_released();
-    void on_ui_btnParcourir_released();
     void on_ui_btnLancerWoW_released();
     void on_ui_btnOptions_released();
 };

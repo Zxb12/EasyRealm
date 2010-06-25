@@ -5,11 +5,16 @@ FenNouveau::FenNouveau(QWidget *parent,  Realmlist *realmlist, bool *ok, bool re
 m_renommer(renommer)
 {
     ui->setupUi(this);
+
+    //On ajoute les dossiers WoW à la combo
+    ui->ui_listeDossiers->addItems( ((FenPrincipale*)parent)->getListeDossiersWoW().keys() );
+
     if (renommer)
     {
         ui->ui_titre->setText(realmlist->getTitre());
         ui->ui_realmlist->setText(realmlist->getRealmlist());
         ui->ui_patchlist->setText(realmlist->getPatchlist());
+        ui->ui_listeDossiers->setCurrentIndex(ui->ui_listeDossiers->findText(realmlist->getNomDossier()));
     }
 
     rafraichirUI();
@@ -36,7 +41,8 @@ void FenNouveau::rafraichirUI()
 {
     //Si les données sont incorrectes, impossible de valider.
     //Dans le cas d'un ajout, titre=="" donc la condition sera fausse. Elle ne pourra être vraie que si le realmlist doit etre renommé.
-    if (ui->ui_titre->text().isEmpty() || ui->ui_realmlist->text().isEmpty() || ui->ui_titre->text() == m_realmlist->getTitre())
+    if (ui->ui_titre->text().isEmpty() || ui->ui_realmlist->text().isEmpty() || ui->ui_titre->text() == m_realmlist->getTitre() ||
+        ui->ui_listeDossiers->currentText() == "")
     {
         ui->ui_btnAjouter->setEnabled(false);
     }
@@ -74,8 +80,14 @@ void FenNouveau::on_ui_btnAjouter_released()
     m_realmlist->setTitre(ui->ui_titre->text());
     m_realmlist->setRealmlist(ui->ui_realmlist->text());
     m_realmlist->setPatchlist(ui->ui_patchlist->text());
+    m_realmlist->setNomDossier(ui->ui_listeDossiers->currentText());
 
     //Nous avons modifié le realmlist, nous sommes ok...
     *m_ok = true;
     this->close();
+}
+
+void FenNouveau::on_ui_listeDossiers_currentIndexChanged(int index)
+{
+    rafraichirUI();
 }

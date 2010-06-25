@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>311</width>
-    <height>121</height>
+    <height>148</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -60,6 +60,16 @@
        </property>
       </widget>
      </item>
+     <item row="3" column="1">
+      <widget class="QComboBox" name="ui_listeDossiers"/>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>Installation à utiliser</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item row="1" column="0">
@@ -84,7 +94,7 @@
       <string>Editer</string>
      </property>
      <property name="icon">
-      <iconset resource="EasyRealmRessources.qrc">
+      <iconset>
        <normaloff>:/FenPrincipale/ressources/ok_edit.png</normaloff>:/FenPrincipale/ressources/ok_edit.png</iconset>
      </property>
     </widget>
@@ -95,15 +105,13 @@
       <string>Annuler</string>
      </property>
      <property name="icon">
-      <iconset resource="EasyRealmRessources.qrc">
+      <iconset>
        <normaloff>:/FenPrincipale/ressources/cancel.png</normaloff>:/FenPrincipale/ressources/cancel.png</iconset>
      </property>
     </widget>
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="EasyRealmRessources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

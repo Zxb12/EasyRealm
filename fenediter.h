@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "realmlist.h"
+#include "fenprincipale.h"
 
 namespace Ui
 {
@@ -33,6 +34,7 @@ private slots:
     void on_ui_realmlist_textChanged(QString );
     void on_ui_titre_textChanged(QString );
     void on_ui_btnAnnuler_released();
+    void on_ui_listeDossiers_currentIndexChanged(int index);
 };
 
 #endif // FENEDITER_H

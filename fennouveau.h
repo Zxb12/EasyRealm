@@ -2,6 +2,8 @@
 #define FENNOUVEAU_H
 
 #include <QDialog>
+
+#include "fenprincipale.h"
 #include "realmlist.h"
 
 namespace Ui
@@ -33,6 +35,7 @@ private slots:
     void on_ui_realmlist_textChanged(QString );
     void on_ui_titre_textChanged(QString );
     void on_ui_btnAnnuler_released();
+    void on_ui_listeDossiers_currentIndexChanged(int index);
 };
 
 #endif // FENNOUVEAU_H

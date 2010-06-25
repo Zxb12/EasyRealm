@@ -11,8 +11,8 @@
 #
 *.user
 Makefile
-Makefile.Debug
-Makefile.Release
+*.Debug
+*.Release
 debug/*
 release/*
 *.qm
