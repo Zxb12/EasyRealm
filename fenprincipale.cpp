@@ -203,6 +203,13 @@ void FenPrincipale::on_ui_btnQuitter_released()
 
 void FenPrincipale::on_ui_listeRealmlist_currentTextChanged(QString currentText)
 {
+    //Si aucun realmlist n'est sélectionné, ne rien afficher.
+    if (currentText.isEmpty())
+    {
+        ui->ui_contenuRealmlist->setText("");
+        return;
+    }
+
     //Mise à jour de l'aperçu du realmlist
     Realmlist realmlist = m_listeRealmlist.value(currentText);
     ui->ui_contenuRealmlist->setText(realmlist.getRealmlistInfo());
