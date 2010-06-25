@@ -14,7 +14,7 @@ Realmlist::Realmlist(QFile &fichier)
     chargerRealmlistDepuisFichier(fichier);
 }
 
-QString Realmlist::getRealmlistData()
+QString Realmlist::getRealmlistInfo()
 {
     QString data;
     data += SET_REALMLIST ;
@@ -35,6 +35,23 @@ QString Realmlist::getRealmlistData()
         data += QObject::tr("Attention, l'installation associée à ce realmlist n'existe pas/plus. Impossible de l'utiliser.");
         data += ENDL;
     }
+    return data;
+}
+
+QString Realmlist::getRealmlistData()
+{
+    QString data;
+    data += SET_REALMLIST ;
+    data += m_realmlist;
+    data += ENDL;
+    //Si aucun patchlist n'est défini, ne pas inscrire SET_PATCHLIST
+    if (!m_patchlist.isEmpty())
+    {
+        data += SET_PATCHLIST;
+        data += m_patchlist;
+        data += ENDL;
+    }
+
     return data;
 }
 

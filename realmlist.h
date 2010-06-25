@@ -12,6 +12,7 @@ public:
 
     Realmlist chargerRealmlistDepuisFichier(QFile &fichier);
     void ecrireRealmlistDansFichier(QFile&);
+    QString getRealmlistInfo();
     QString getRealmlistData();
     QString getTitre() { return m_titre; }
     QString getRealmlist() { return m_realmlist; }

@@ -205,7 +205,7 @@ void FenPrincipale::on_ui_listeRealmlist_currentTextChanged(QString currentText)
 {
     //Mise à jour de l'aperçu du realmlist
     Realmlist realmlist = m_listeRealmlist.value(currentText);
-    ui->ui_contenuRealmlist->setText(realmlist.getRealmlistData());
+    ui->ui_contenuRealmlist->setText(realmlist.getRealmlistInfo());
     if (!realmlist.getDossierExiste())
         ui->ui_btnLancerWoW->setEnabled(false);
     else
