@@ -23,7 +23,7 @@ FenPrincipale::FenPrincipale(QWidget *parent) :
     //Ouverture du fichier de sauvegarde des realmlists.
     m_fichierRealmlist.open(QIODevice::ReadWrite);
     //Premier chargement.
-    ChargerRealmlists();
+    chargerRealmlists();
 }
 
 FenPrincipale::~FenPrincipale()
@@ -33,7 +33,7 @@ FenPrincipale::~FenPrincipale()
     delete ui;
 }
 
-void FenPrincipale::ChargerRealmlists()
+void FenPrincipale::chargerRealmlists()
 {
     //Vérification du fichier de sauvegarde
     if (!m_fichierRealmlist.isReadable())
@@ -67,7 +67,7 @@ void FenPrincipale::ChargerRealmlists()
         m_listeDossiersWoW.insert(nomDossierWoW, ((QString) m_fichierRealmlist.readLine()).remove(ENDL));
     }
     //Vérification des dossiers WoW.
-    VerifierDossierWoW();
+    verifierDossierWoW();
 
     //Chargement de tous les realmlists
     while (!m_fichierRealmlist.atEnd())
@@ -79,7 +79,7 @@ void FenPrincipale::ChargerRealmlists()
             realmlist.setDossierExiste(false);
 
         //Vérification des doublons
-        bool ok = !EstUnDoublon(realmlist.getTitre());
+        bool ok = !estUnDoublon(realmlist.getTitre());
         while (!ok)
         {
             QMessageBox::warning(this, tr("EasyRealm"), tr("Erreur de chargement: le nom d'un realmlist est en conflit avec un autre, veuillez le renommer."));
@@ -99,7 +99,7 @@ void FenPrincipale::ChargerRealmlists()
     ui->ui_listeRealmlist->setCurrentRow(row);
 }
 
-void FenPrincipale::SauvegarderRealmlists()
+void FenPrincipale::sauvegarderRealmlists()
 {
     //Vérif du fichier de sauvegarde
     if (!m_fichierRealmlist.isWritable())
@@ -148,15 +148,15 @@ void FenPrincipale::SauvegarderRealmlists()
         realmlist.ecrireRealmlistDansFichier(m_fichierRealmlist);
 }
 
-void FenPrincipale::RechargerRealmlists()
+void FenPrincipale::rechargerRealmlists()
 {
     //Mise à jour du fichier de sauvegarde
-    SauvegarderRealmlists();
+    sauvegarderRealmlists();
     //Puis mise à jour de l'UI
-    ChargerRealmlists();
+    chargerRealmlists();
 }
 
-void FenPrincipale::VerifierDossierWoW()
+void FenPrincipale::verifierDossierWoW()
 {
     //TODO: Revoir entièrement cette fonction pour ne pas utiliser de deuxième liste...
     //Je ne connais certainement pas assez les itérateurs pour faire un truc en finesse.
@@ -209,7 +209,7 @@ void FenPrincipale::changeEvent(QEvent *e)
 void FenPrincipale::on_ui_btnQuitter_released()
 {
     //Sauvegarde avant la fermeture
-    SauvegarderRealmlists();
+    sauvegarderRealmlists();
     this->close();
 }
 
@@ -244,7 +244,7 @@ void FenPrincipale::on_ui_btnAjouter_released()
         FenNouveau fen(this, &realmlist, &ok, doublon);
         fen.exec();
 
-        doublon = EstUnDoublon(realmlist.getTitre());
+        doublon = estUnDoublon(realmlist.getTitre());
         if (ok && doublon)
             QMessageBox::warning(this, tr("EasyRealm"), tr("Le nom du nouveau realmlist est déjà utilisé. Veuillez le renommer."));
 
@@ -254,7 +254,7 @@ void FenPrincipale::on_ui_btnAjouter_released()
             //On ajoute le realmlist résultant de la fenêtre d'ajout
             m_listeRealmlist.insert(realmlist.getTitre(), realmlist);
             //On met à jour le fichier et l'UI
-            RechargerRealmlists();
+            rechargerRealmlists();
             QMessageBox::information(this, tr("EasyRealm"), tr("Nouveau realmlist ajouté avec succès."));
         }
     }
@@ -289,7 +289,7 @@ void FenPrincipale::on_ui_btnEditer_released()
         m_listeRealmlist.remove(ui->ui_listeRealmlist->currentItem()->text());
         m_listeRealmlist.insert(realmlist.getTitre(), realmlist);
         //Mise à jour
-        RechargerRealmlists();
+        rechargerRealmlists();
         QMessageBox::information(this, tr("EasyRealm"), tr("Realmlist édité avec succès."));
     }
 }
@@ -316,7 +316,7 @@ void FenPrincipale::on_ui_btnSupprimer_released()
     {
         //On supprimer et on actualise le fichier & l'UI
         m_listeRealmlist.remove(ui->ui_listeRealmlist->currentItem()->text());
-        RechargerRealmlists();
+        rechargerRealmlists();
     }
 }
 

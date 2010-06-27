@@ -7,6 +7,7 @@
 #include <QFileDialog>
 #include <QFile>
 #include <QMap>
+
 #include "realmlist.h"
 #include "fennouveau.h"
 #include "fenediter.h"
@@ -24,11 +25,11 @@ public:
     FenPrincipale(QWidget *parent = 0);
     ~FenPrincipale();
 
-    void ChargerRealmlists();
-    void SauvegarderRealmlists();
-    void RechargerRealmlists();
-    bool EstUnDoublon(QString check) { return m_listeRealmlist.contains(check); }
-    void VerifierDossierWoW();
+    void chargerRealmlists();
+    void sauvegarderRealmlists();
+    void rechargerRealmlists();
+    bool estUnDoublon(QString check) { return m_listeRealmlist.contains(check); }
+    void verifierDossierWoW();
 
     void setViderCache(bool viderCache) { m_viderCache = viderCache; }
     bool getViderCache() { return m_viderCache; }

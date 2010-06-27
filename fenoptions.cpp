@@ -116,7 +116,7 @@ void FenOptions::on_ui_btnEnregistrer_released()
     parent->setViderCache(ui->ui_viderCache->isChecked());
     parent->setEteindreER(ui->ui_eteindreER->isChecked());
     parent->setListeDossiersWoW(m_listeDossiersWoW);
-    parent->RechargerRealmlists();
+    parent->rechargerRealmlists();
 
     this->close();
 }

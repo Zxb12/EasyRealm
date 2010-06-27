@@ -2,6 +2,7 @@
 #define FENEDITER_H
 
 #include <QDialog>
+
 #include "realmlist.h"
 #include "fenprincipale.h"
 
