@@ -32,6 +32,8 @@ public:
 
     void setViderCache(bool viderCache) { m_viderCache = viderCache; }
     bool getViderCache() { return m_viderCache; }
+    void setEteindreER(bool eteindreER) { m_eteindreER = eteindreER; }
+    bool getEteindreER() { return m_eteindreER; }
     void setListeDossiersWoW(QMap<QString, QString> liste) { m_listeDossiersWoW = liste; }
     QMap<QString, QString> getListeDossiersWoW() { return m_listeDossiersWoW; }
 
@@ -44,6 +46,7 @@ private:
     QMap<QString, QString> m_listeDossiersWoW;
     QFile m_fichierRealmlist;
     bool m_viderCache;
+    bool m_eteindreER;
 
 private slots:
     void on_ui_listeRealmlist_currentTextChanged(QString currentText);

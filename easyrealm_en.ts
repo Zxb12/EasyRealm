@@ -90,16 +90,16 @@
     <name>FenOptions</name>
     <message>
         <location filename="fenoptions.ui" line="14"/>
-        <location filename="fenoptions.cpp" line="73"/>
-        <location filename="fenoptions.cpp" line="81"/>
-        <location filename="fenoptions.cpp" line="97"/>
-        <location filename="fenoptions.cpp" line="105"/>
-        <location filename="fenoptions.cpp" line="126"/>
-        <location filename="fenoptions.cpp" line="131"/>
-        <location filename="fenoptions.cpp" line="136"/>
-        <location filename="fenoptions.cpp" line="154"/>
-        <location filename="fenoptions.cpp" line="159"/>
-        <location filename="fenoptions.cpp" line="181"/>
+        <location filename="fenoptions.cpp" line="75"/>
+        <location filename="fenoptions.cpp" line="83"/>
+        <location filename="fenoptions.cpp" line="99"/>
+        <location filename="fenoptions.cpp" line="107"/>
+        <location filename="fenoptions.cpp" line="129"/>
+        <location filename="fenoptions.cpp" line="134"/>
+        <location filename="fenoptions.cpp" line="139"/>
+        <location filename="fenoptions.cpp" line="157"/>
+        <location filename="fenoptions.cpp" line="162"/>
+        <location filename="fenoptions.cpp" line="184"/>
         <source>EasyRealm</source>
         <translation>EasyRealm</translation>
     </message>
@@ -134,48 +134,53 @@
         <translation>Delete</translation>
     </message>
     <message>
-        <location filename="fenoptions.cpp" line="73"/>
+        <location filename="fenoptions.ui" line="106"/>
+        <source>Eteindre EasyRealm lors du lancement de World of Warcraft.</source>
+        <translation>Shut EasyRealm down on World of Warcraft launch.</translation>
+    </message>
+    <message>
+        <location filename="fenoptions.cpp" line="75"/>
         <source>Entrez le nom de la nouvelle installation</source>
         <translation>Enter the new installation&apos;s name</translation>
     </message>
     <message>
-        <location filename="fenoptions.cpp" line="81"/>
+        <location filename="fenoptions.cpp" line="83"/>
         <source>Ce nom d&apos;installation est déjà utilisé.</source>
         <translation>This installation name s already used.</translation>
     </message>
     <message>
-        <location filename="fenoptions.cpp" line="89"/>
-        <location filename="fenoptions.cpp" line="173"/>
+        <location filename="fenoptions.cpp" line="91"/>
+        <location filename="fenoptions.cpp" line="176"/>
         <source>Choisissez le dossier d&apos;installation de World of Warcraft</source>
         <translation>Choose the World of Warcraft installation directory</translation>
     </message>
     <message>
-        <location filename="fenoptions.cpp" line="98"/>
-        <location filename="fenoptions.cpp" line="182"/>
+        <location filename="fenoptions.cpp" line="100"/>
+        <location filename="fenoptions.cpp" line="185"/>
         <source>Le dossier World of Warcraft n&apos;existe pas/plus dans l&apos;emplacement enregistré ou le dossier n&apos;est pas un dossier World of Warcraft.
 Veuillez sélectionner le dossier World of Warcraft.</source>
         <translation>The World of Warcraft directory does not exist (anymore) in the saved path, or the directory isn&apos;t a World of Warcraft directory.
 Please select the World of Warcraft directory.</translation>
     </message>
     <message>
-        <location filename="fenoptions.cpp" line="105"/>
+        <location filename="fenoptions.cpp" line="107"/>
         <source>Nouvelle installation de World of Warcraft ajoutée avec succès.</source>
         <translation>New World of Warcraft installation successfully added.</translation>
     </message>
     <message>
-        <location filename="fenoptions.cpp" line="126"/>
-        <location filename="fenoptions.cpp" line="154"/>
+        <location filename="fenoptions.cpp" line="129"/>
+        <location filename="fenoptions.cpp" line="157"/>
         <source>La liste de dossiers World of Warcraft est vide.</source>
         <translation>The World of Warcraft directories list is empty.</translation>
     </message>
     <message>
-        <location filename="fenoptions.cpp" line="131"/>
-        <location filename="fenoptions.cpp" line="159"/>
+        <location filename="fenoptions.cpp" line="134"/>
+        <location filename="fenoptions.cpp" line="162"/>
         <source>Aucun dossier World of Warcraft n&apos;est sélectionné.</source>
         <translation>You have no World of Warcraft directory selected.</translation>
     </message>
     <message>
-        <location filename="fenoptions.cpp" line="136"/>
+        <location filename="fenoptions.cpp" line="139"/>
         <source>Êtes-vous sur de vouloir supprimer le dossier World of Warcraft sélectionné ?</source>
         <translation>Are you sure that you want to delete the selected World of Warcraft directory ?</translation>
     </message>
@@ -237,73 +242,77 @@ Please select the World of Warcraft directory.</translation>
         <translation>Quit</translation>
     </message>
     <message>
-        <location filename="fenprincipale.cpp" line="39"/>
+        <location filename="fenprincipale.cpp" line="41"/>
         <source>EasyRealm - Erreur</source>
         <translation>EasyRealm - Error</translation>
     </message>
     <message>
-        <location filename="fenprincipale.cpp" line="39"/>
-        <location filename="fenprincipale.cpp" line="102"/>
+        <location filename="fenprincipale.cpp" line="41"/>
         <source>Impossible de charger les realmlists depuis le fichier.</source>
         <translation>Unable to load realmlists from file.</translation>
     </message>
     <message>
-        <location filename="fenprincipale.cpp" line="80"/>
+        <location filename="fenprincipale.cpp" line="85"/>
         <source>Erreur de chargement: le nom d&apos;un realmlist est en conflit avec un autre, veuillez le renommer.</source>
         <translation>Loading error: a realmlist&apos;s name is in conflict with another one, please rename it.</translation>
     </message>
     <message>
-        <location filename="fenprincipale.cpp" line="86"/>
-        <location filename="fenprincipale.cpp" line="274"/>
+        <location filename="fenprincipale.cpp" line="91"/>
+        <location filename="fenprincipale.cpp" line="293"/>
         <source>Realmlist édité avec succès.</source>
         <translation>Realmlist successfully edited.</translation>
     </message>
     <message>
-        <location filename="fenprincipale.cpp" line="102"/>
+        <location filename="fenprincipale.cpp" line="107"/>
         <source>Easyrealm - Erreur</source>
         <translation>EasyRealm - Error</translation>
     </message>
     <message>
-        <location filename="fenprincipale.cpp" line="165"/>
+        <location filename="fenprincipale.cpp" line="107"/>
+        <source>Impossible de sauvegarder les données realmlists.</source>
+        <translation>Unable to save realmlists to file.</translation>
+    </message>
+    <message>
+        <location filename="fenprincipale.cpp" line="177"/>
         <source>Choisissez le dossier d&apos;installation de World of Warcraft</source>
         <translation>Choose the World of Warcraft installation directory</translation>
     </message>
     <message>
-        <location filename="fenprincipale.cpp" line="170"/>
+        <location filename="fenprincipale.cpp" line="182"/>
         <source>L&apos;installation </source>
         <translation>The installation </translation>
     </message>
     <message>
-        <location filename="fenprincipale.cpp" line="170"/>
+        <location filename="fenprincipale.cpp" line="182"/>
         <source> a été supprimée.</source>
         <translation> has been deleted.</translation>
     </message>
     <message>
-        <location filename="fenprincipale.cpp" line="330"/>
+        <location filename="fenprincipale.cpp" line="349"/>
         <source>EasyRealm ne trouve pas de fichier realmlist.wtf avec le dossier d&apos;installation spécifié.</source>
         <translation>EasyRealm doesn&apos;t find the realmlist.wtf file with the specified installation directory.</translation>
     </message>
     <message>
-        <location filename="fenprincipale.cpp" line="80"/>
-        <location filename="fenprincipale.cpp" line="86"/>
-        <location filename="fenprincipale.cpp" line="161"/>
-        <location filename="fenprincipale.cpp" line="170"/>
-        <location filename="fenprincipale.cpp" line="230"/>
-        <location filename="fenprincipale.cpp" line="239"/>
-        <location filename="fenprincipale.cpp" line="250"/>
-        <location filename="fenprincipale.cpp" line="255"/>
+        <location filename="fenprincipale.cpp" line="85"/>
+        <location filename="fenprincipale.cpp" line="91"/>
+        <location filename="fenprincipale.cpp" line="173"/>
+        <location filename="fenprincipale.cpp" line="182"/>
+        <location filename="fenprincipale.cpp" line="249"/>
+        <location filename="fenprincipale.cpp" line="258"/>
+        <location filename="fenprincipale.cpp" line="269"/>
         <location filename="fenprincipale.cpp" line="274"/>
-        <location filename="fenprincipale.cpp" line="283"/>
-        <location filename="fenprincipale.cpp" line="288"/>
         <location filename="fenprincipale.cpp" line="293"/>
-        <location filename="fenprincipale.cpp" line="309"/>
-        <location filename="fenprincipale.cpp" line="314"/>
-        <location filename="fenprincipale.cpp" line="330"/>
+        <location filename="fenprincipale.cpp" line="302"/>
+        <location filename="fenprincipale.cpp" line="307"/>
+        <location filename="fenprincipale.cpp" line="312"/>
+        <location filename="fenprincipale.cpp" line="328"/>
+        <location filename="fenprincipale.cpp" line="333"/>
+        <location filename="fenprincipale.cpp" line="349"/>
         <source>EasyRealm</source>
         <translation>EasyRealm</translation>
     </message>
     <message>
-        <location filename="fenprincipale.cpp" line="162"/>
+        <location filename="fenprincipale.cpp" line="174"/>
         <source>Le dossier World of Warcraft n&apos;existe pas/plus dans l&apos;emplacement enregistré ou le dossier n&apos;est pas un dossier World of Warcraft.
 Veuillez sélectionner le dossier World of Warcraft.</source>
         <translation>The World of Warcraft directory does not exist (anymore) in the saved path, or the directory isn&apos;t a World of Warcraft directory.
@@ -314,31 +323,31 @@ Please select the World of Warcraft directory.</translation>
         <translation type="obsolete">Choose the World of Warcraft installation directory</translation>
     </message>
     <message>
-        <location filename="fenprincipale.cpp" line="230"/>
+        <location filename="fenprincipale.cpp" line="249"/>
         <source>Le nom du nouveau realmlist est déjà utilisé. Veuillez le renommer.</source>
         <translation>The new realmlist&apos;s name already exists. Please rename it.</translation>
     </message>
     <message>
-        <location filename="fenprincipale.cpp" line="239"/>
+        <location filename="fenprincipale.cpp" line="258"/>
         <source>Nouveau realmlist ajouté avec succès.</source>
         <translation>New realmlist successfully added.</translation>
     </message>
     <message>
-        <location filename="fenprincipale.cpp" line="250"/>
-        <location filename="fenprincipale.cpp" line="283"/>
-        <location filename="fenprincipale.cpp" line="309"/>
+        <location filename="fenprincipale.cpp" line="269"/>
+        <location filename="fenprincipale.cpp" line="302"/>
+        <location filename="fenprincipale.cpp" line="328"/>
         <source>La liste de realmlists est vide.</source>
         <translation>The realmlists list is empty.</translation>
     </message>
     <message>
-        <location filename="fenprincipale.cpp" line="255"/>
-        <location filename="fenprincipale.cpp" line="288"/>
-        <location filename="fenprincipale.cpp" line="314"/>
+        <location filename="fenprincipale.cpp" line="274"/>
+        <location filename="fenprincipale.cpp" line="307"/>
+        <location filename="fenprincipale.cpp" line="333"/>
         <source>Aucun realmlist n&apos;est sélectionné.</source>
         <translation>You do not have any realmlist selected.</translation>
     </message>
     <message>
-        <location filename="fenprincipale.cpp" line="293"/>
+        <location filename="fenprincipale.cpp" line="312"/>
         <source>Êtes-vous sur de vouloir supprimer le realmlist sélectionné ?</source>
         <translation>Do you really want to delete the selected realmlist ?</translation>
     </message>

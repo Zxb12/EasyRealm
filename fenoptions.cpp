@@ -16,6 +16,8 @@ FenOptions::FenOptions(QWidget *parent) :
     {
         //Vider le cache ?
         ui->ui_viderCache->setChecked(((FenPrincipale*) parent)->getViderCache());
+        //Eteindre ER ?
+        ui->ui_eteindreER->setChecked(((FenPrincipale*) parent)->getEteindreER());
         //Liste dossiers WoW
         m_listeDossiersWoW = ((FenPrincipale*) parent)->getListeDossiersWoW();
         //Remplissage de l'affichage
@@ -112,6 +114,7 @@ void FenOptions::on_ui_btnEnregistrer_released()
 {
     FenPrincipale* parent = (FenPrincipale*) m_parent;
     parent->setViderCache(ui->ui_viderCache->isChecked());
+    parent->setEteindreER(ui->ui_eteindreER->isChecked());
     parent->setListeDossiersWoW(m_listeDossiersWoW);
     parent->RechargerRealmlists();
 

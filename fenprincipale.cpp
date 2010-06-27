@@ -5,6 +5,8 @@
 #define MARQUEUR_FIN_DOSSIERS       "FIN_DOSSIERS_WOW"
 #define MARQUEUR_VIDER_CACHE        "VIDER_CACHE"
 #define MARQUEUR_PAS_VIDER_CACHE    "PAS_VIDER_CACHE"
+#define MARQUEUR_ETEINDRE_ER        "ETEINDRE_EASYREALM"
+#define MARQUEUR_PAS_ETEINDRE_ER    "PAS_ETEINDRE_EASYREALM"
 
 #define WOW_EXE_POS                 "/Wow.exe"
 #define REALMLIST_POS_WOTLK         "/Data/frFR/realmlist.wtf"
@@ -51,7 +53,10 @@ void FenPrincipale::ChargerRealmlists()
     int row = ((QString) m_fichierRealmlist.readLine()).remove(ENDL).toInt();
 
     //Lecture du status du vidage de cache.
-    m_viderCache = (((QString) m_fichierRealmlist.readLine()).remove(ENDL) == "VIDER_CACHE");
+    m_viderCache = (((QString) m_fichierRealmlist.readLine()).remove(ENDL) == MARQUEUR_VIDER_CACHE);
+
+    //Lecture du status de l'arrêt d'ER au lancement de WoW.
+    m_eteindreER = (((QString) m_fichierRealmlist.readLine()).remove(ENDL) == MARQUEUR_ETEINDRE_ER);
 
     //Lecture du dossier WoW
     QString nomDossierWoW;
@@ -99,7 +104,7 @@ void FenPrincipale::SauvegarderRealmlists()
     //Vérif du fichier de sauvegarde
     if (!m_fichierRealmlist.isWritable())
     {
-        QMessageBox::critical(this, tr("Easyrealm - Erreur"), tr("Impossible de charger les realmlists depuis le fichier."));
+        QMessageBox::critical(this, tr("Easyrealm - Erreur"), tr("Impossible de sauvegarder les données realmlists."));
         return;
     }
 
@@ -115,6 +120,13 @@ void FenPrincipale::SauvegarderRealmlists()
         m_fichierRealmlist.write(MARQUEUR_VIDER_CACHE);
     else
         m_fichierRealmlist.write(MARQUEUR_PAS_VIDER_CACHE);
+    m_fichierRealmlist.write(ENDL);
+
+    //Enregistrement du status de l'arrêt d'ER au lancement de WoW
+    if (m_eteindreER)
+        m_fichierRealmlist.write(MARQUEUR_ETEINDRE_ER);
+    else
+        m_fichierRealmlist.write(MARQUEUR_PAS_ETEINDRE_ER);
     m_fichierRealmlist.write(ENDL);
 
     //Enregistrement des dossiers WoW
@@ -356,6 +368,10 @@ void FenPrincipale::on_ui_btnLancerWoW_released()
 
     QProcess Wow;
     Wow.startDetached(program);
+
+    //On éteint ER si l'utilisateur a coché l'option correspondante.
+    if (m_eteindreER)
+        this->close();
 }
 
 void FenPrincipale::on_ui_btnOptions_released()
